@@ -1,20 +1,20 @@
-public class ArrayDeque<Generic> {
-    private Generic[] Array;
+public class ArrayDeque<T> {
+    private T[] Array;
     private double ratio;
     private int size;
     private int front;
     private int rear;
 
     public ArrayDeque() {
-        Array = (Generic[]) new Object[8];
+        Array = (T[]) new Object[8];
         size = 0;
         ratio = (double) size / Array.length;
         front = 0;
         rear = 0;
     }
 
-    public ArrayDeque(Generic item) {
-        Array = (Generic[]) new Object[8];
+    public ArrayDeque(T item) {
+        Array = (T[]) new Object[8];
         Array[0] = item;
         size = 1;
         ratio = (double) size / Array.length;
@@ -26,13 +26,13 @@ public class ArrayDeque<Generic> {
         size = other.size;
         front = other.front;
         rear = other.rear;
-        Array = (Generic[]) new Object[other.Array.length];
+        Array = (T[]) new Object[other.Array.length];
         System.arraycopy(other, 0, Array, 0, Array.length);
         ratio = (double) size / Array.length;
     }
 
     private void resizeArray(int length) {
-        Generic[] temp = (Generic[]) new Object[length];
+        T[] temp = (T[]) new Object[length];
         if (front < rear) {
             System.arraycopy(this, 0, temp, 0, size);
         } else {
@@ -45,21 +45,27 @@ public class ArrayDeque<Generic> {
         Array = temp;
     }
 
-    public void addFirst(Generic item) {
+    public void addFirst(T item) {
         if (size == Array.length) {
             resizeArray(size * 2);
         }
         front = (front - 1 + Array.length) % Array.length;
+        if (size == 0) {
+            rear = front;
+        }
         Array[front] = item;
         size++;
         ratio = (double) size / Array.length;
     }
 
-    public void addLast(Generic item) {
+    public void addLast(T item) {
         if (size == Array.length) {
             resizeArray(size * 2);
         }
         rear = (rear + 1) % Array.length;
+        if (size == 0) {
+            front = rear;
+        }
         Array[rear] = item;
         size++;
         ratio = (double) size / Array.length;
@@ -91,11 +97,11 @@ public class ArrayDeque<Generic> {
         }
     }
 
-    public Generic removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
-        Generic temp = Array[front];
+        T temp = Array[front];
         front = (front - 1 + Array.length) % Array.length;
         size--;
         ratio = (double) size / Array.length;
@@ -105,11 +111,11 @@ public class ArrayDeque<Generic> {
         return temp;
     }
 
-    public Generic removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         }
-        Generic temp = Array[rear];
+        T temp = Array[rear];
         rear = (rear + 1) % Array.length;
         size--;
         ratio = (double) size / Array.length;
@@ -119,7 +125,7 @@ public class ArrayDeque<Generic> {
         return temp;
     }
 
-    public Generic get(int index) {
+    public T get(int index) {
         if (index >= size) {
             return null;
         }

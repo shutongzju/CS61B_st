@@ -1,32 +1,32 @@
 /*This is a Deque implemented by circle linked list*/
-public class LinkedListDeque<Generic> {
+public class LinkedListDeque<T> {
 
-    private class GenericNode{
-        private Generic item;
-        private GenericNode front;
-        private GenericNode rear;
+    private class TNode{
+        private T item;
+        private TNode front;
+        private TNode rear;
 
-        private GenericNode(Generic i, GenericNode Pf, GenericNode Pr) {
+        private TNode(T i, TNode pf, TNode pr) {
             item = i;
-            front = Pf;
-            rear = Pr;
+            front = pf;
+            rear = pr;
         }
     }
 
     private int size;
-    private GenericNode sentinel;
+    private TNode sentinel;
 
 
     public LinkedListDeque() {
         size = 0;
-        sentinel = new GenericNode(null, null, null);
+        sentinel = new TNode(null, null, null);
         sentinel.rear = sentinel;
         sentinel.front = sentinel;
     }
 
-    public LinkedListDeque(Generic item) {
+    public LinkedListDeque(T item) {
         size = 1;
-        GenericNode P = new GenericNode(item, sentinel, sentinel);
+        TNode P = new TNode(item, sentinel, sentinel);
         sentinel.rear = P;
         sentinel.front = P;
     }
@@ -36,10 +36,10 @@ public class LinkedListDeque<Generic> {
         sentinel.front = sentinel;
         size = 0;
         int i = 0;
-        GenericNode PP = P.sentinel.rear;
+        TNode PP = P.sentinel.rear;
         while (i < P.size) {
-            GenericNode temp = sentinel.front;
-            sentinel.front = new GenericNode(PP.item, temp, sentinel);
+            TNode temp = sentinel.front;
+            sentinel.front = new TNode(PP.item, temp, sentinel);
             temp.rear = sentinel.front;
             PP = PP.rear;
             size++;
@@ -47,16 +47,16 @@ public class LinkedListDeque<Generic> {
         }
     }
 
-    public void addFirst(Generic item) {
-        GenericNode P = sentinel.rear;
-        sentinel.rear = new GenericNode(item, sentinel, P);
+    public void addFirst(T item) {
+        TNode P = sentinel.rear;
+        sentinel.rear = new TNode(item, sentinel, P);
         P.front = sentinel.rear;
         size++;
     }
 
-    public void addLast(Generic item) {
-        GenericNode P = sentinel.front;
-        sentinel.front = new GenericNode(item, P, sentinel);
+    public void addLast(T item) {
+        TNode P = sentinel.front;
+        sentinel.front = new TNode(item, P, sentinel);
         P.rear = sentinel.front;
         size++;
     }
@@ -73,7 +73,7 @@ public class LinkedListDeque<Generic> {
     }
 
     public void printDeque() {
-        GenericNode P = sentinel;
+        TNode P = sentinel;
         while (P.rear != sentinel) {
             System.out.println(P.rear.item + " ");
             P = P.rear;
@@ -81,47 +81,48 @@ public class LinkedListDeque<Generic> {
         System.out.println("\n");
     }
 
-    public Generic removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
         size--;
-        Generic item = sentinel.rear.item;
+        T item = sentinel.rear.item;
         sentinel.rear.rear.front = sentinel;
         sentinel.rear = sentinel.rear.rear;
         return item;
     }
 
-    public Generic removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         }
         size--;
-        Generic item = sentinel.front.item;
+        T item = sentinel.front.item;
         sentinel.front.front.rear = sentinel;
         sentinel.front = sentinel.front.front;
         return item;
     }
 
-    public Generic get(int index) {
+    public T get(int index) {
         if(index - size >= 0) {
             return null;
         }
-        GenericNode P = sentinel.rear;
+        TNode P = sentinel.rear;
         while (index > 0) {
             P = P.rear;
+            index--;
         }
         return P.item;
     }
 
-    public Generic getRecursive(int index) {
+    public T getRecursive(int index) {
         if (index - size >= 0) {
             return null;
         }
         return getRecursiveHelper(sentinel.rear, index);
     }
 
-    private Generic getRecursiveHelper(GenericNode P, int index) {
+    private T getRecursiveHelper(TNode P, int index) {
         if(index == 0) {
             return P.item;
         }
