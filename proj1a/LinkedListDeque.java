@@ -1,7 +1,7 @@
 /*This is a Deque implemented by circle linked list*/
 public class LinkedListDeque<T> {
 
-    private class TNode{
+    private class TNode {
         private T item;
         private TNode front;
         private TNode rear;
@@ -24,28 +24,28 @@ public class LinkedListDeque<T> {
         sentinel.front = sentinel;
     }
 
-    public LinkedListDeque(T item) {
-        size = 1;
-        TNode P = new TNode(item, sentinel, sentinel);
-        sentinel.rear = P;
-        sentinel.front = P;
-    }
-
-    public LinkedListDeque(LinkedListDeque P) {
-        sentinel.rear = sentinel;
-        sentinel.front = sentinel;
-        size = 0;
-        int i = 0;
-        TNode PP = P.sentinel.rear;
-        while (i < P.size) {
-            TNode temp = sentinel.front;
-            sentinel.front = new TNode(PP.item, temp, sentinel);
-            temp.rear = sentinel.front;
-            PP = PP.rear;
-            size++;
-            i++;
-        }
-    }
+//    public LinkedListDeque(T item) {
+//        size = 1;
+//        TNode P = new TNode(item, sentinel, sentinel);
+//        sentinel.rear = P;
+//        sentinel.front = P;
+//    }
+//
+//    public LinkedListDeque(LinkedListDeque P) {
+//        sentinel.rear = sentinel;
+//        sentinel.front = sentinel;
+//        size = 0;
+//        int i = 0;
+//        TNode PP = P.sentinel.rear;
+//        while (i < P.size) {
+//            TNode temp = sentinel.front;
+//            sentinel.front = new TNode(PP.item, temp, sentinel);
+//            temp.rear = sentinel.front;
+//            PP = PP.rear;
+//            size++;
+//            i++;
+//        }
+//    }
 
     public void addFirst(T item) {
         TNode P = sentinel.rear;
@@ -104,7 +104,7 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if(index - size >= 0) {
+        if (index - size >= 0) {
             return null;
         }
         TNode P = sentinel.rear;
@@ -123,7 +123,7 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecursiveHelper(TNode P, int index) {
-        if(index == 0) {
+        if (index == 0) {
             return P.item;
         }
         return getRecursiveHelper(P.rear, index - 1);

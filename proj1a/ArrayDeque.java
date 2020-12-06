@@ -13,31 +13,31 @@ public class ArrayDeque<T> {
         rear = 0;
     }
 
-    public ArrayDeque(T item) {
-        Array = (T[]) new Object[8];
-        Array[0] = item;
-        size = 1;
-        ratio = (double) size / Array.length;
-        front = 0;
-        rear = 0;
-    }
-
-    public ArrayDeque(ArrayDeque other) {
-        size = other.size;
-        front = other.front;
-        rear = other.rear;
-        Array = (T[]) new Object[other.Array.length];
-        System.arraycopy(other, 0, Array, 0, Array.length);
-        ratio = (double) size / Array.length;
-    }
+//    public ArrayDeque(T item) {
+//        Array = (T[]) new Object[8];
+//        Array[0] = item;
+//        size = 1;
+//        ratio = (double) size / Array.length;
+//        front = 0;
+//        rear = 0;
+//    }
+//
+//    public ArrayDeque(ArrayDeque other) {
+//        size = other.size;
+//        front = other.front;
+//        rear = other.rear;
+//        Array = (T[]) new Object[other.Array.length];
+//        System.arraycopy(other, 0, Array, 0, Array.length);
+//        ratio = (double) size / Array.length;
+//    }
 
     private void resizeArray(int length) {
         T[] temp = (T[]) new Object[length];
         if (front < rear) {
-            System.arraycopy(this, 0, temp, 0, size);
+            System.arraycopy(Array, 0, temp, 0, size);
         } else {
-            System.arraycopy(this, front, temp, 0, size - front);
-            System.arraycopy(this, 0, temp, size - front, rear + 1);
+            System.arraycopy(Array, front, temp, 0, size - front);
+            System.arraycopy(Array, 0, temp, size - front, rear + 1);
             front = 0;
             rear = size - 1;
         }
