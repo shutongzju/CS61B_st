@@ -1,74 +1,84 @@
 public class ArrayDeque<T> {
-    private T[] Array;
+    private T[]array;
     private double ratio;
     private int size;
     private int front;
     private int rear;
 
     public ArrayDeque() {
-        Array = (T[]) new Object[8];
+        array = (T[]) new Object[8];
         size = 0;
-        ratio = (double) size / Array.length;
+        ratio = (double) size / array.length;
         front = 0;
         rear = 0;
     }
 
-//    public ArrayDeque(T item) {
-//        Array = (T[]) new Object[8];
-//        Array[0] = item;
+//    public arrayDeque(T item) {
+//        array = (T[]) new Object[8];
+//        array[0] = item;
 //        size = 1;
-//        ratio = (double) size / Array.length;
+//        ratio = (double) size / array.length;
 //        front = 0;
 //        rear = 0;
 //    }
 //
-//    public ArrayDeque(ArrayDeque other) {
+//    public arrayDeque(arrayDeque other) {
 //        size = other.size;
 //        front = other.front;
 //        rear = other.rear;
-//        Array = (T[]) new Object[other.Array.length];
-//        System.arraycopy(other, 0, Array, 0, Array.length);
-//        ratio = (double) size / Array.length;
+//        array = (T[]) new Object[other.array.length];
+//        System.arraycopy(other, 0, array, 0, array.length);
+//        ratio = (double) size / array.length;
 //    }
 
-    private void resizeArray(int length) {
+    private void resizearray(int length) {
         T[] temp = (T[]) new Object[length];
         if (front < rear) {
-            System.arraycopy(Array, 0, temp, 0, size);
+            System.arraycopy(array, front, temp, 0, size);
+            front = 0;
+            rear = size - 1;
         } else {
-            System.arraycopy(Array, front, temp, 0, size - front);
-            System.arraycopy(Array, 0, temp, size - front, rear + 1);
+            System.arraycopy(array, front, temp, 0, size - front);
+            System.arraycopy(array, 0, temp, size - front, rear + 1);
             front = 0;
             rear = size - 1;
         }
         ratio = (double) size / length;
-        Array = temp;
+        array = temp;
     }
 
     public void addFirst(T item) {
-        if (size == Array.length) {
-            resizeArray(size * 2);
+        if (size == array.length) {
+            resizearray(size * 2);
         }
-        front = (front - 1 + Array.length) % Array.length;
         if (size == 0) {
             rear = front;
+            array[front] = item;
+            size++;
+            ratio = (double) size / array.length;
+            return;
         }
-        Array[front] = item;
+        front = (front - 1 + array.length) % array.length;
+        array[front] = item;
         size++;
-        ratio = (double) size / Array.length;
+        ratio = (double) size / array.length;
     }
 
     public void addLast(T item) {
-        if (size == Array.length) {
-            resizeArray(size * 2);
+        if (size == array.length) {
+            resizearray(size * 2);
         }
-        rear = (rear + 1) % Array.length;
         if (size == 0) {
             front = rear;
+            array[rear] = item;
+            size++;
+            ratio = (double) size / array.length;
+            return;
         }
-        Array[rear] = item;
+        rear = (rear + 1) % array.length;
+        array[rear] = item;
         size++;
-        ratio = (double) size / Array.length;
+        ratio = (double) size / array.length;
     }
 
     public boolean isEmpty() {
@@ -85,14 +95,14 @@ public class ArrayDeque<T> {
     public void printDeque() {
         if (front < rear) {
             for (int i = 0; i < size; i++) {
-                System.out.println(Array[i] + " ");
+                System.out.println(array[i] + " ");
             }
         } else {
             for (int i = front; i < size; i++) {
-                System.out.println(Array[i] + " ");
+                System.out.println(array[i] + " ");
             }
             for (int i = 0; i <= rear; i++) {
-                System.out.println(Array[i] + " ");
+                System.out.println(array[i] + " ");
             }
         }
     }
@@ -101,12 +111,12 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        T temp = Array[front];
-        front = (front - 1 + Array.length) % Array.length;
+        T temp = array[front];
+        front = (front + 1) % array.length;
         size--;
-        ratio = (double) size / Array.length;
-        if (ratio < 0.25 && Array.length >= 16) {
-            resizeArray(Array.length / 2);
+        ratio = (double) size / array.length;
+        if (ratio < 0.25 && array.length >= 16) {
+            resizearray(array.length / 2);
         }
         return temp;
     }
@@ -115,12 +125,12 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        T temp = Array[rear];
-        rear = (rear + 1) % Array.length;
+        T temp = array[rear];
+        rear = (rear - 1 + array.length) % array.length;
         size--;
-        ratio = (double) size / Array.length;
-        if (ratio < 0.25 && Array.length >= 16) {
-            resizeArray(Array.length / 2);
+        ratio = (double) size / array.length;
+        if (ratio < 0.25 && array.length >= 16) {
+            resizearray(array.length / 2);
         }
         return temp;
     }
@@ -129,7 +139,7 @@ public class ArrayDeque<T> {
         if (index >= size) {
             return null;
         }
-        return Array[(front + index) % Array.length];
+        return array[(front + index) % array.length];
     }
 
 
