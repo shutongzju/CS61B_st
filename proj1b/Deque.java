@@ -1,11 +1,12 @@
 public interface Deque<Item> {
-    public void addFirst(Item x);
-    public void addLast(Item y);
-    public Item removeFirst();
-    public Item removeLast();
-    public Item get(int i);
-    public int size();
-    default public boolean isEmpty() {
+    void addLast(Item y);
+    void addFirst(Item x);
+    Item removeFirst();
+    Item removeLast();
+    Item get(int i);
+    int size();
+    void printDeque();
+    default  boolean isEmpty() {
         if (size() == 0) {
             return true;
         }

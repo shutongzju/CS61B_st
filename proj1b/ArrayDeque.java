@@ -96,6 +96,7 @@ public class ArrayDeque<T> implements Deque<T> {
         return size;
     }
 
+    @Override
     public void printDeque() {
         if (front < rear) {
             for (int i = 0; i < size; i++) {
