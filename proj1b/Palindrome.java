@@ -18,9 +18,10 @@ public class Palindrome {
     //use recursion to find Palindrome
     private boolean isPalindromeHelper(Deque<Character> deque) {
         if (deque.size() == 0 || deque.size() == 1) {
-            return true;}
-        else if (deque.removeFirst() == deque.removeLast()) {
-            return isPalindromeHelper(deque);}
+            return true;
+        } else if (deque.removeFirst() == deque.removeLast()) {
+            return isPalindromeHelper(deque);
+        }
         return false;
     }
 
@@ -31,8 +32,8 @@ public class Palindrome {
 
     private boolean isPalindromeHelper(Deque<Character> deque, CharacterComparator cc) {
         if (deque.size() == 0 || deque.size() == 1) {
-            return true;}
-        else if (cc.equalChars(deque.removeFirst(), deque.removeLast())) {
+            return true;
+        } else if (cc.equalChars(deque.removeFirst(), deque.removeLast())) {
             return isPalindromeHelper(deque, cc);
         }
         return false;
