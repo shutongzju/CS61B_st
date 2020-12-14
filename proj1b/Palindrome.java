@@ -18,11 +18,9 @@ public class Palindrome {
     //use recursion to find Palindrome
     private boolean isPalindromeHelper(Deque<Character> deque) {
         if (deque.size() == 0 || deque.size() == 1) {
-            return true;
-        }
+            return true; }
         else if (deque.removeFirst() == deque.removeLast()) {
-            return isPalindromeHelper(deque);
-        }
+            return isPalindromeHelper(deque); }
         return false;
     }
 
